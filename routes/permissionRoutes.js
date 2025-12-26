@@ -1,0 +1,12 @@
+const express = require("express");
+const router = express.Router();
+const permissionController = require("../controllers/permissionController");
+const authMiddleware = require("../middleware/authMiddleware");
+const permissionMiddleware = require("../middleware/permissionMiddleware");
+router.get("/", authMiddleware, permissionMiddleware("view_permission"), permissionController.getAll);
+router.get("/:id", authMiddleware, permissionMiddleware("view_permission"), permissionController.getOne);
+router.post("/", authMiddleware, permissionMiddleware("create_permission"), permissionController.create);
+router.put("/:id", authMiddleware, permissionMiddleware("edit_permission"), permissionController.update);
+router.patch("/:id", authMiddleware, permissionMiddleware("edit_permission"), permissionController.patch);
+router.delete("/:id", authMiddleware, permissionMiddleware("delete_permission"), permissionController.delete);
+module.exports = router;
